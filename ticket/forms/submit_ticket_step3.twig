@@ -41,6 +41,13 @@
             </div>
         </div>
 
+		<div class="sp-form-row">
+            {{ form_label('priority', Lang.choice('ticket.priority', 1)) }}
+            <div class="sp-input-container">
+                {{ form_select('priority', department_priorities, null, {'autofocus': 'autofocus'}) }}
+            </div>
+        </div>
+
         {% if organisationUsers is not empty %}
             <div class="sp-form-row">
                 {{ form_label('organisationUsers', Lang.get('user.organisation_users')) }}
@@ -72,16 +79,10 @@
 					<div class="sp-input-container">
 						{{ form_text('subject') }}
 					</div>
-					<div class="input-container">
-						{{ form_text('subject') }}
-					</div>
         </div>
 				{% else %}
         <div class="sp-form-row sp-form-full">
 	                {{ form_label('subject', Lang.get('ticket.subject')) }}
-					<div class="input-container">
-						{{ form_text('subject') }}
-					</div>
 					<div class="sp-input-container">
 						{{ form_text('subject') }}
 					</div>
