@@ -80,14 +80,6 @@
 
     <div class="sp-mt-6">
         {{ form_submit(Lang.choice('general.post', 1)) }}
-
-        {% if ticket.status_id != Config.get('settings.default_resolved_status') %}
-        &nbsp;&nbsp;
-            <a href="{{ route('ticket.frontend.ticket.close', ticket.number) }}{% if Request.input('token') is not empty %}?token={{ Request.input('token') }}{% endif %}"
-               class="mark-resolved sp-button">
-                {{ Lang.get('ticket.mark_resolved') }}
-            </a>
-        {% endif %}
     </div>
 
 </form>

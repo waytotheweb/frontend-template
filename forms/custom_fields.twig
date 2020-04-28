@@ -7,10 +7,42 @@
     {% endif %}
 
     {% set attributes = { 'data-depends-on': customfield.depends_on_option_id } %}
+		{% if customfield['name'] starts with 'SSH IP Address' %}
+			<hr />
+			<h3>SSH Access Details:</h3>
+			<p class="light">If you require us to use an SSH Key to login to root, please follow <a href='http://www.configserver.com/ssh.html' target='_blank'>these steps</a>. Do not add private keys to the ticket.</p>
+		{% elseif customfield['name'] starts with 'Root Email Address' %}
+			<hr />
+			<h3>Server Details:</h3>
+		{% elseif customfield['name'] starts with 'Control Panel Type' %}
+			<hr />
+			<h3>Control Panel Details:</h3>
+		{% elseif customfield['name'] starts with 'What is the usable IP address range' %}
+			<hr />
+			<h3>Server options:</h3>
+			<div class='bs-callout bs-callout-danger'>
+				<h4>Please Note:</h4>
+				<p>We cannot provide any guarantees that the work that we do will not affect third-party applications (including web scripts).</p>
+				<p>We can advise after the work is done if you see any problems where to start looking, but we do not provide any support for such third party applications, including web scripts, if they stop working or their functionality changes.</p>
+				<p>Any advice that we give is dependent on you performing normal server administration investigative work into any problems and implementing any suggestions that we may provide.</p>
+			</div>
+		{% elseif customfield['name'] starts with 'Migrate to / Use EasyApache v4' %}
+			<hr />
+			<h3>EasyApache v4 options:</h3>
+		{% elseif customfield['name'] starts with 'Upgrade Apache' %}
+			<hr />
+			<h3>EasyApache v3 options:</h3>
+		{% elseif customfield['name'] starts with 'cxs Watch Daemon' %}
+			<hr />
+			<h3>ConfigServer eXploit Scanner options:</h3>
+		{% elseif customfield['name'] starts with 'Unique email header' %}
+			<hr />
+			<h3>MailScanner options:</h3>
+		{% endif %}
     <div class="sp-form-row {% if customfield.type == 9 %}sp-form-full{% endif %} sp-form-customfields
                 {% if customfield.depends_on_option_id and not customfield.parent_selected %}sp-hidden{% endif %}"
          data-field="{{ customfield.id }}"
-         data-locked="{{ customfield.value is not empty and czustomfield.locked }}"
+         data-locked="{{ customfield.value is not empty and customfield.locked }}"
          data-dependent-children="{{ customfield.children is not empty ? customfield.children|json_encode : "[]" }}"
          data-depends-on-option="{{ customfield.depends_on_option_id }}">
         
@@ -132,6 +164,63 @@
             {% if customfield.description is not empty %}
                 <div class="sp-description">{{ customfield.description }}</div>
             {% endif %}
+		{% if customfield['name'] starts with 'SSH IP Address' %}
+			<div class="light">The IP (not Hostname) address of of the server for SSH and WHM login access</div>
+		{% elseif customfield['name'] starts with 'SSH Port' %}	
+			<div class="light">Normally port 22</div>
+		{% elseif customfield['name'] starts with 'Root Password' %}
+			<div class="light">Root password is required (for WHM login on cPanel servers) even if SSH access is via SSH key or sudo login</div><br />
+			<div class="light">Note: Password fields are encrypted and purged from the ticket when it is closed</div>
+		{% elseif customfield['name'] starts with 'SU Username' %}
+			<div class="light">If required, what is the username to su to root</div>
+		{% elseif customfield['name'] starts with 'SU Password' %}
+			<div class="light">If required, what is the password to su to root</div><br />
+			<div class="light">Note: Password fields are encrypted and purged from the ticket when it is closed</div>
+		{% elseif customfield['name'] starts with 'Root Email Address' %}
+			<div class="light">The address to which root's email and therefore the server reports should be forwarded</div>
+		{% elseif customfield['name'] starts with 'What Operating System is the server running and how much RAM does it have' %}
+
+		{% elseif customfield['name'] starts with 'Are there any of the package options that you already have installed' %}
+			<div class="light">Please review the options at <a href='http://www.configserver.com/cp/cpanel.html' target='_blank'>http://www.configserver.com/cp/cpanel.html</a> for the package you have ordered</div>
+		{% elseif customfield['name'] starts with 'Are there any of the package options that you don' %}
+			<div class="light">Please note that csf/lfd is an essential part of the package and will always be installed.</div>
+		{% elseif customfield['name'] starts with 'Are there any package options that you don' %}
+			<div class="light">(if they are already installed)</div>
+		{% elseif customfield['name'] starts with 'Upgrade Kernel' %}
+			<div class="light">There is always a very small risk that a kernel upgrade can make the server unbootable. You should ensure that you have a safe backup of any data before we do this if necessary. We do not offer a service to investigate or fix kernel reboot or upgrade problems.</div>
+		{% elseif customfield['name'] starts with 'Upgrade MySQL/MariaDB' %}
+			<div class="light">cPanel regard MySQL v5.7 as their current recommended platform.
+			<br></div>
+			<div class="light">Note: If you choose to upgrade to a new major version you need to ensure you have backups as downgrading is not possible.<br /></div>
+		{% elseif customfield['name'] starts with 'PHP versions' %}
+			<div class="light">These are all the versions provided by EasyApache v4</div>
+		{% elseif customfield['name'] starts with 'PHP default version' %}
+			<div class="light">This is the version that websites will default to using</div>
+		{% elseif customfield['name'] starts with 'If cPanel has not yet been configured, what is the usable IP address range' %}
+			<div class="light">Assigned to the server by your server provider</div>
+		{% elseif customfield['name'] starts with 'What hostname do you want for the server' %}
+			<div class="light">Must be a fully qualified domain name, e.g. server.yourdomain.com (Enter "n/a" if this is already set)
+</div>
+		{% elseif customfield['name'] starts with 'ConfigServer Explorer' %}
+			<div class="light">There is a risk that with cse installed that a hacker could use it to further exploit a server if they have gained root access through an exploit in WHM or another addon. You should consider this before installing cse.</div>
+		{% elseif customfield['name'] starts with 'cxs Watch Daemon' %}
+			<div class="light">The cxs Watch Daemon provides comprehensive active scanning of user data</div>
+		{% elseif customfield['name'] starts with 'FTP upload scanning' %}
+
+		{% elseif customfield['name'] starts with 'ModSecurity upload scanning' %}
+			<div class="light">ModSecurity scanning helps block exploits uploaded via web scripts quickly and allows csf blocking</div>
+		{% elseif customfield['name'] starts with 'Quarantine Directory' %}
+			<div class="light">Create /home/quarantine and configure cxs to quarantine viruses and fingerprints</div>
+		{% elseif customfield['name'] starts with 'cxs Daily/Weekly scan' %}
+			<div class="light">Configure a basic daily scan of modified files and a full weekly scan of all files? (Note: such scans may impact server performance)</div>
+		{% elseif customfield['name'] starts with 'Suspend accounts with exploits' %}
+			<div class="light">When running the exploit scan we will normally suspend any accounts found to contain suspicious files/exploits. We do not remove exploits when running this scan, but will provide a report.</div>
+		{% elseif customfield['name'] starts with 'Unique email header' %}
+			<div class="light">MailScanner adds headers to all emails it scans. Please provide an identifying word for these headers such as your company name (letters and numbers only, no spaces or punctuation). Do NOT use "mailscanner", "spam", "virus" or variations of these.</div>
+		{% elseif customfield['name'] starts with 'Website URL' %}
+			<div class="light">MailScanner may send messages which contain your site's URL. This should be a URL with information about unacceptable attachments or other mail that MailScanner has returned to the sender, or where you can be contacted for help with this.</div>
+		{% endif %}
         </div>
     </div>
 {% endfor %}
+<hr>

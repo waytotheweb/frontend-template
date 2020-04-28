@@ -33,20 +33,11 @@
 
         <h2>{{ Lang.get('ticket.enter_ticket_details') }}</h2>
 
-        <hr />
-
         <div class="sp-form-row">
             {{ form_label('department', Lang.choice('ticket.department', 1)) }}
             <div class="sp-input-container">
                 {{ form_hidden('department', department.id) }}
                 <span class="department-name">{{ department.frontend_name }}</span>
-            </div>
-        </div>
-
-        <div class="sp-form-row">
-            {{ form_label('priority', Lang.choice('ticket.priority', 1)) }}
-            <div class="sp-input-container">
-                {{ form_select('priority', department_priorities, null, {'autofocus': 'autofocus'}) }}
             </div>
         </div>
 
@@ -68,14 +59,34 @@
             </div>
         </div>
 
-        <hr />
+        {% include 'frontend.' ~ template ~ '.forms.custom_fields' with {'new': true} %}
 
+		<h2>Enter Message Details</h2>
+
+				{% if department.id not in [9, 11] %}
         <div class="sp-form-row sp-form-full">
-            {{ form_label('subject', Lang.get('ticket.subject')) }}
-            <div class="sp-input-container">
-                {{ form_text('subject') }}
-            </div>
+					<div class="light">The tracking ID will be provided in the subject of an email sent to you after your order has been manually checked and processed. It is not included in your initial order email and is not your order number. Please wait until you receive this second email with the tracking ID before logging your ticket. (e.g. #XX1234) Please do not create your own number as it will only delay your order.</div>
         </div>
+        <div class="sp-form-row sp-form-full">
+	                {{ form_label('subject', 'Tracking ID') }}
+					<div class="sp-input-container">
+						{{ form_text('subject') }}
+					</div>
+					<div class="input-container">
+						{{ form_text('subject') }}
+					</div>
+        </div>
+				{% else %}
+        <div class="sp-form-row sp-form-full">
+	                {{ form_label('subject', Lang.get('ticket.subject')) }}
+					<div class="input-container">
+						{{ form_text('subject') }}
+					</div>
+					<div class="sp-input-container">
+						{{ form_text('subject') }}
+					</div>
+        </div>
+				{% endif %}
 
         <div class="sp-form-row sp-form-full sp-suggested-articles sp-hidden">
             <label></label>
@@ -87,7 +98,13 @@
             </div>
         </div>
 
-        <div class="sp-form-row sp-form-full">
+		{% if department.id not in [9, 11]%}
+			<div class="sp-form-row sp-form-full">
+				Any additional information or questions should be entered in the box below. Please note that this is a required text area so if there is nothing else to add please enter "N/A"
+			</div>
+		{% endif %}
+
+		<div class="sp-form-row sp-form-full">
             {{ form_label('text', Lang.choice('general.message', 1)) }}
             <div class="sp-input-container">
                 {{ form_redactor('text') }}
@@ -140,6 +157,7 @@
                             </li>
                         {% endfor %}
                     {% endif %}
+Do <b>not</b> attempt to upload any type of script attachment to this helpdesk, otherwise you will be automatically blocked in the firewall.</li></ul>
                 </ul>
 
                 <div class="sp-mt-4">
@@ -156,7 +174,7 @@
             </div>
         </div>
 
-        {% include 'frontend.' ~ template ~ '.forms.custom_fields' with {'new': true} %}
+        <hr />
 
         {% if showCaptcha %}
             {% if Captcha.isVisible() %}

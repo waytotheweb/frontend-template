@@ -32,9 +32,6 @@
             <div class="sp-hidden lg:sp-block print:sp-block">
                 {% include 'frontend.' ~ template ~ '.ticket.ticket_details' %}
 
-                {% if customfields is not empty %}
-                    {% include 'frontend.' ~ template ~ '.ticket.ticket_custom_fields' %}
-                {% endif %}
             </div>
         </div>
 
@@ -115,6 +112,19 @@
         </div>
     {% endif %}
 
+    {% if customfields is not empty %}
+        <h2 class="collapsable">
+            {{ Lang.choice('ticket.customfield', 2) }}
+            <span>
+                <i class="fa fa-chevron-up"></i>
+            </span>
+        </h2>
+        <div class="hide">
+            {% include 'frontend.' ~ template ~ '.ticket.ticket_custom_fields' %}
+        </div>
+        <hr />
+    {% endif %}
+
     {% if ticket.user.isAscendingReplyOrder() %}
         {% include 'frontend.' ~ template ~ '.ticket.ticket_messages' %}
     {% endif %}
@@ -138,6 +148,8 @@
     {% if jsValidatorFields|default is not empty %}
         {{ jsValidatorFields|raw }}
     {% endif %}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset_rev('resources/assets/frontend/css/main.css') }}">
 
     <!-- Redactor -->
     <script src="{{ asset_rev('resources/assets/libs/editor.min.js') }}"></script>

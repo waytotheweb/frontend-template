@@ -13,16 +13,6 @@
 
         {% include 'frontend.' ~ template ~ '.user.forms.user_profile' %}
 
-        <div class="sp-form-row">
-            {{ form_label('template_mode', Lang.get('core.template_mode')) }}
-            <div class="sp-input-container">
-                {{ form_select('template_mode',
-                    {1: Lang.get('core.light_mode'), 2: Lang.get('core.dark_mode')},
-                    record.template_mode is empty ? Config.get('settings.frontend_template_mode') : record.template_mode
-                ) }}
-            </div>
-        </div>
-
         {% include 'frontend.' ~ template ~ '.user.forms.organisation' %}
 
         {% include 'frontend.' ~ template ~ '.forms.custom_fields' %}

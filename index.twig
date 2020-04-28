@@ -19,50 +19,43 @@
 
     {{ View.fireHook('frontend.body_start') }}
 
+<div class="csf-header-box">
+	<div class="csf-header-logo-td">
+		<a href="https://configserver.com/index.html"><img class="csf-header-logo" src="https://configserver.com/images/logo.gif" alt="Logo"></a>
+	</div>
+	<div class="csf-header-text-td">
+		<span class="csf-header-text">ConfigServer Services HelpDesk</span><br>
+		<span class="csf-subheader-text"> Server Management Services from Way to The 
+				Web Ltd
+		</span>
+	</div>
+</div>
+<div style="margin-top: 8px; margin-bottom: 8px; padding: 10px; border: 2px solid #a5c051; border-radius: 16px; background: white; color: maroon" class="csf-header-box"><a style="font-size: 16px; color:inherit" rel="font-size: 16px; color:inherit" href="https://www.configserver.com">ConfigServer Home Page</a>
+</div>
+<!--
+<div style="padding: 8px; border: solid 1px #990000; border-radius: 20px; margin-bottom: 8px; background=white">
+	<h3 style="margin-top:8px; border-bottom: 1px solid #eee;padding-bottom: 8px;">Christmas Holiday</h3>
+	<p>We will be closing our Store, Sales and Helpdesk from <strong>17:30 Friday, 20th December 2019</strong> to <strong>09:00 Thursday, 2nd January 2020</strong>. No orders, support requests or sales emails will be processed between those dates.
+	</p>
+	<p>If you purchase a license or Service Package before the closing date and require installation, please be sure to leave at least 24 hours before then for the work to be done. Otherwise, any work will be scheduled for after this period.
+	</p>
+</div>
+--></div>
+
     <header class="sp-sticky sp-top-0 sp-z-10002 sp-px-6 sp-bg-primary lg:sp-px-8 print:sp-static print:sp-px-0 print:sp-shadow-none
                    {% if not (route starts with 'core.frontend.home') or not(isModuleEnabled('Selfservice')) %}sp-shadow{% endif %}">
         <div class="sp-container sp-relative sp-py-2 sp-m-auto print:sp-max-w-full">
             {{ View.fireHook('frontend.header_start') }}
 
-            <div class="sp-search sp-absolute sp-hidden sp-flex sp-items-center sp-h-full sp-w-full sp--mt-2
-                        sp-bg-primary sp-z-10 print:sp-hidden">
-                <div class="sp-flex-grow sp-w-full">
-                    <form name="search" action="{{ route('core.frontend.search') }}" method="post">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        <input type="search" name="query" placeholder="{{ Lang.get('general.search') }}" />
-                    </form>
-                </div>
-                <div class="sp-flex-none">
-                    <div class="sp-search-close sp-button sp-ml-3">
-                        <i class="fas fa-times"></i>
-                    </div>
-                </div>
-            </div>
-
             <div class="sp-flex sp-items-center sp-h-full">
                 <div class="sp-flex-grow">
                     <a href="{{ route('core.frontend.home') }}">
-                        <img src="{{ get_logo(get_template_mode(false) == 'sp-theme-dark') }}" alt="{{ company }}"
-                             class="sp-logo sp-inline {% if get_template_mode(false) == 'sp-theme-dark' %}print:sp-hidden{% endif %}" />
-                        {% if get_template_mode(false) == 'sp-theme-dark' %}
-                            <img src="{{ get_logo() }}" alt="{{ company }}" class="sp-logo sp-hidden print:sp-inline" />
-                        {% endif %}
+						HelpDesk Home
                     </a>
-                </div>
-
-                <div class="sp-flex-none print:sp-hidden">
-                    {% if not (route starts with 'core.frontend.home') and isModuleEnabled('Selfservice') %}
-                        <a class="sp-search-button sp-p-2 sp-mr-2">
-                            <i class="fas fa-search"></i>
-                        </a>
-                    {% endif %}
                 </div>
 
                 <div class="sp-flex-none sp-hidden lg:sp-block print:sp-hidden">
                     {% if Config.get('settings.website_url') is not empty %}
-                        <a href="{{ Config.get('settings.website_url') }}" class="sp-mr-4">
-                            {{ Lang.get('core.back_to_website') }}
-                        </a>
                     {% elseif isModuleEnabled('Ticket') %}
                         <a href="{{ route('ticket.frontend.ticket.createStep1') }}" class="sp-mr-4">
                             {{ Lang.get('core.submit_ticket') }}

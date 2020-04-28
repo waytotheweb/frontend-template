@@ -20,14 +20,6 @@
         </div>
     </div>
     <div class="sp-form-row">
-        <label>{{ Lang.choice('ticket.priority', 1) }}</label>
-        <div class="sp-input-container">
-            <span class="sp-ticket-priority sp-badge" style="background-color: {{ ticket.priority.colour }}">
-                {{ ticket.priority.name }}
-            </span>
-        </div>
-    </div>
-    <div class="sp-form-row">
         <label>{{ Lang.get('ticket.submitted') }}</label>
         <div class="sp-input-container">
             {{ timeago(ticket.created_at) }}
