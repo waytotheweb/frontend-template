@@ -41,7 +41,7 @@
             </div>
         </div>
 
-		<div class="sp-form-row">
+		<div class="sp-form-row sp-hidden">
             {{ form_label('priority', Lang.choice('ticket.priority', 1)) }}
             <div class="sp-input-container">
                 {{ form_select('priority', department_priorities, null, {'autofocus': 'autofocus'}) }}
