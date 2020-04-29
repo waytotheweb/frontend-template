@@ -133,6 +133,9 @@
                 {% endif %}
 
             {% elseif customfield.type == 9 %}
+				{% if customfield.value is null %}
+					<br />
+				{% endif %}
                 {{ form_redactor('customfield[' ~ customfield.id ~ ']', customfield.value is not null and not customfield.encrypted ? customfield.value : null,
                     customfield.value is not empty and customfield.locked ? {'rows': 5, 'class': 'sp-w-full', 'disabled': 'disabled'} : {'rows': 5, 'class': 'sp-w-full'}) }}
                 {% if customfield.value is not null and customfield.encrypted %}
