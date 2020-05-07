@@ -47,11 +47,34 @@
         <div class="sp-container sp-relative sp-py-2 sp-m-auto print:sp-max-w-full">
             {{ View.fireHook('frontend.header_start') }}
 
+			<div class="sp-search sp-absolute sp-hidden sp-flex sp-items-center sp-h-full sp-w-full sp--mt-2
+                        sp-bg-primary sp-z-10 print:sp-hidden">
+                <div class="sp-flex-grow sp-w-full">
+                    <form name="search" action="{{ route('core.frontend.search') }}" method="post">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <input type="search" name="query" placeholder="{{ Lang.get('general.search') }}" />
+                    </form>
+                </div>
+                <div class="sp-flex-none">
+                    <div class="sp-search-close sp-button sp-ml-3">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+            </div>
+
             <div class="sp-flex sp-items-center sp-h-full">
                 <div class="sp-flex-grow">
                     <a href="{{ route('core.frontend.home') }}">
 						HelpDesk Home
                     </a>
+                </div>
+
+                <div class="sp-flex-none print:sp-hidden">
+                    {% if not (route starts with 'core.frontend.home') and isModuleEnabled('Selfservice') %}
+                        <a class="sp-search-button sp-p-2 sp-mr-2">
+                            <i class="fas fa-search"></i>
+                        </a>
+                    {% endif %}
                 </div>
 
                 <div class="sp-flex-none sp-hidden lg:sp-block print:sp-hidden">
