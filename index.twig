@@ -79,14 +79,9 @@
 
                 <div class="sp-flex-none sp-hidden lg:sp-block print:sp-hidden">
                     {% if Config.get('settings.website_url') is not empty %}
-<<<<<<< HEAD
                     {% elseif isModuleEnabled('Ticket') %}
                         <a href="{{ route('ticket.frontend.ticket.createStep1') }}" class="sp-mr-4">
                             {{ Lang.get('core.submit_ticket') }}
-=======
-                        <a href="{{ Config.get('settings.website_url') }}" class="sp-mr-4">
-                            {{ Lang.get('core.back_to_website') }}
->>>>>>> upstream/master
                         </a>
                     {% endif %}
 
